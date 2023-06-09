@@ -112,14 +112,6 @@ func (suite *EventDispatcherTestSuite) TestEventDispatcher_Has() {
 	assert.False(suite.T(), suite.eventDispatcher.Has(suite.event.GetName(), &suite.handler3))
 }
 
-type MockHandler struct {
-	mock.Mock
-}
-
-func (m *MockHandler) Handle(event EventInterface) {
-	m.Called(event)
-}
-
 func (suite *EventDispatcherTestSuite) TestEventDispatch_Dispatch() {
 	eh := &MockHandler{}
 	eh.On("Handle", &suite.event)
@@ -129,6 +121,15 @@ func (suite *EventDispatcherTestSuite) TestEventDispatch_Dispatch() {
 	eh.AssertNumberOfCalls(suite.T(), "Handle", 1)
 }
 
+type MockHandler struct {
+	mock.Mock
+}
+
+func (m *MockHandler) Handle(event EventInterface) {
+	m.Called(event)
+}
+
 func TestSuite(t *testing.T) {
 	suite.Run(t, new(EventDispatcherTestSuite))
 }
+ 
