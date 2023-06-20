@@ -18,7 +18,7 @@ func OpenChannel() (*amqp.Channel, error) {
 
 func Consume(ch *amqp.Channel, out chan<- amqp.Delivery) error {
 	msgs, err := ch.Consume(
-		"minhafile",
+		"QueueOrders",
 		"go-consumer",
 		false,
 		false,
